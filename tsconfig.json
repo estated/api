@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "outDir": "dist",
+        "lib": [
+            "es2015",
+            "esnext.asynciterable",
+            "es7"
+        ],
+        "sourceMap": true,
+        "rootDir": ".",
+        "types": [ "node" ],
+        "baseUrl": ".",
+        "paths": {
+            "application/*": [ "src/application/*" ],
+            "domain/*": [ "src/domain/*" ],
+            "infra/*": [ "src/infra/*" ],
+            "ui/*": [ "src/UI/*" ]
+        }
+    },
+    "compileOnSave": true,
+    "include": [
+        "src/**/*",
+        "*.json"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
