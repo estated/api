@@ -7,7 +7,6 @@ export default interface PropertyView {
     description: string;
     type: number;
     createdAt: Date;
-    contactsCount: number;
     geo: Geo;
     price: Price;
 }

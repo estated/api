@@ -6,8 +6,7 @@ import busFactory from './bus/buses'
 import ErrorHandling from './errorHandling';
 import ExecutableSchema from './gql'
 import * as morgan from 'morgan';
-
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express'); // what a shit
+import {log} from "util";
 
 export default async (app: Express) => {
 
@@ -18,10 +17,6 @@ export default async (app: Express) => {
         .set('metrics', config.METRICS)
 
         .use(morgan('combined'))
-        // bodyParser is needed just for POST.
-        .use('/graphql', bodyParser.json(), graphqlExpress({ schema: ExecutableSchema(app.get('queryBus'), app.get('commandBus'))}))
-        // if you want GraphiQL enabled
-        .get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
         .use(bodyParser.json())
         .use(bodyParser.urlencoded({ extended: true }))

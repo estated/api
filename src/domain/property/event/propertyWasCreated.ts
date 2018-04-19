@@ -11,6 +11,6 @@ export default class PropertyWasCreated extends Domain.DomainEvent {
         public readonly geo: Geo,
         public readonly price: Price
     ) {
-        super()
+        super();
     }
 }

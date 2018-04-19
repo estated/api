@@ -27,7 +27,7 @@ export default class Elastic {
         });
     }
 
-    async add(index: string, uuid: string, doc): Promise<CreateDocumentResponse> {
+    async add(index: string, uuid: string, doc: any): Promise<CreateDocumentResponse> {
         return await this.client.index({
             index: index,
             type: index,
@@ -36,13 +36,15 @@ export default class Elastic {
         });
     }
 
-    async find(index: string, query, size: number): Promise<any> {
+    async find(index: string, query, size: number, from: number = 0, sort = {}): Promise<any> {
         return await this.client.search(
             {
                 index: index,
                 type: index,
                 body: {
-                    size: size,
+                    size,
+                    from,
+                    sort,
                     query
                 }
             }

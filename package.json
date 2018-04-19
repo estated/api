@@ -10,8 +10,8 @@
     "dev": "nodemon",
     "compile": "tsc -p tsconfig.json",
     "event-consumer": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/elasticEventConsumer.ts",
-    "user-projections": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/elasticUserProjectionConsumer.ts",
-    "property-projections": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/elasticPropertyProjectionConsumer.ts",
+    "user-consumer": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/userConsumer.ts",
+    "property-consumer": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/propertyConsumer.ts",
     "indexes": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/bootElastic.ts"
   },
   "devDependencies": {

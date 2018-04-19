@@ -8,7 +8,7 @@ export default class RedisSnapshot implements EventStore.ISnapshotStoreDBAL {
     private readonly type: string;
 
     constructor(type: string) {
-        this.type = type;
+        this.type = type + '-snapshot-';
         this.redisCli = client;
     }
 

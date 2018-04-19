@@ -8,7 +8,7 @@ export default class RedisStore implements EventStore.IEventStoreDBAL {
     private readonly type: string;
 
     constructor(type: string) {
-        this.type = type;
+        this.type = type + '-';
         this.redisCli = client;
     }
 

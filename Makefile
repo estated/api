@@ -23,17 +23,14 @@ logs:
 	docker-compose logs -f $(service)
 
 .PHONY: start
-start: start-deps
-	yarn dev
+dev: start-deps boot-es
+	DEV_HOST=192.168.99.100 yarn dev
+
+.PHONY: boot-es
+boot-es: boot-es
+	DEV_HOST=192.168.99.100 yarn indexes
 
 .PHONY: start-deps
 start-deps:
 	docker-compose up -d rmq kibana elasticsearch redis
-
-.PHONY: events-consumer  # Consumer all events to store them in elastic
-events-consumer:
-	yarn events-consumer
-
-.PHONY: user-projections # Consumer user events to generate projections in elastic
-user-projections:
-	yarn user-projections
+	sleep 10

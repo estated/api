@@ -1,11 +1,10 @@
 import schema from './schema'
-import Resolvers from './resolvers'
-import {Application} from "hollywood-js";
+import resolvers from './resolvers'
 import { makeExecutableSchema } from "graphql-tools";
 
-export default function ExecutableSchema(queryBus: Application.QueryBus, commandBus: Application.CommandBus) {
+export default () => {
     return makeExecutableSchema({
         typeDefs: schema,
-        resolvers: Resolvers(queryBus, commandBus)
+        resolvers: resolvers
     });
 }

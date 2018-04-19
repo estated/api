@@ -17,5 +17,7 @@ const boot = () => {
     }
 };
 
-serverDecorator(app).then(boot);
+serverDecorator(app).then(boot).catch((err) => {
+    console.log('Impossssssible to sssstart', err);
+});
 
