@@ -1,6 +1,5 @@
-# Event Sourcing in Typescript 
+# Real Estate API
 
-This repo its a demo to test implementations of [hollywood-js](https://github.com/jorge07/hollywood) in a pseudo real use case.
 
 ### Usage
 
@@ -28,31 +27,25 @@ make event-consumer
 make user-projections
 ```
 
-### REST
+### GraphQL example
+
+`http://localhost:3001/graphiql`
 
 **Get User**
 
-`GET` `/users/:uuid`
-
-**Create User**
-
-`POST` `/users`
-```json
+```
 {
-   "uuid": "efa48501-e187-4f17-9c71-3ea9cdb4e795",
-   "email": "demo@demo.com"
+  user(uuid: "efa48501-e187-4f17-9c71-3ea9cdb4e795"){
+    email
+    uuid
+  }
 }
 ```
-
-### GraphQL
-
-`http://localhost:3000/graphiq`
-
-**Get User**
+**Get Users**
 
 ```
-query {
-  user(uuid: "efa48501-e187-4f17-9c71-3ea9cdb4e795"){
+{
+  users {
     email
     uuid
   }
@@ -70,4 +63,4 @@ mutation {
 ### Tools
 
 - Rabbit Admin: http://localhost:15672
-- Kibana: http://localhost:5601 (index name: `events`)
+- Kibana: http://localhost:5601 
