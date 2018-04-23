@@ -16,7 +16,7 @@ export default class AMQCLi {
             const conn = this.connection = await connect(MESSAGE_BROKER);
             this.manageConnection();
             const channel = this.channel = await conn.createConfirmChannel();
-            await channel.assertExchange(this.defaultExchange, 'topic', this.defaultOptions);
+            await channel.assertExchange(this.defaultExchange, 'topic', this.defaultOptions as any);
             log('CONNECTED TO BROKER');
         }
 

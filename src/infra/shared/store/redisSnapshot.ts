@@ -14,8 +14,7 @@ export default class RedisSnapshot implements EventStore.ISnapshotStoreDBAL {
 
     async get(uuid: Domain.AggregateRootId): Promise<any|null> {
         const snapshot: string|null = await this.redisCli.getAsync(this.type + uuid).catch(log);
-
-
+        
         return isString(snapshot) ? JSON.parse(snapshot) : null;
     }
 

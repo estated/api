@@ -10,7 +10,6 @@ broker.connect().then(
             const domainMessage = <Domain.DomainMessage>(JSON.parse(msg.content.toString()) as any);
 
             console.log('Revieced: ', domainMessage);
-
         })
     }
 );

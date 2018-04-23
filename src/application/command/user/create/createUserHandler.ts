@@ -3,11 +3,13 @@ import CreateUserCommand from './createUserCommand';
 import User from 'domain/user/model/user';
 import GetUser from 'domain/user/repository/query/getUser';
 import Email from 'domain/user/valueObject/email';
-import UserView from "domain/user/query/UserView";
-import {Domain} from "hollywood-js/index";
+import WriteRepository from "domain/shared/error/repository/write";
 
 export default class CreateUserHandler implements Application.ICommandHandler {
-    constructor(private userStore: GetUser, private userRepository: Domain.IRepository<User>, ) {}
+    constructor(
+        private readonly userReadModel: GetUser,
+        private readonly userRepository: WriteRepository<User>
+    ) {}
 
     async handle(command: CreateUserCommand): Promise<void|Application.IAppError> {
         await this.validateUuidAndEmail(command.uuid, command.email);
@@ -29,18 +31,13 @@ export default class CreateUserHandler implements Application.ICommandHandler {
     }
 
     private async validateUuidAndEmail(uuid: string, email: Email): Promise<void> {
-        let userExist: any = await this.userStore.getUserByUuid(uuid);
-        CreateUserHandler.failIfAlreadyExist(userExist);
-        userExist = await this.userStore.getUserByEmail(email.value);
-        CreateUserHandler.failIfAlreadyExist(userExist);
-    }
-
-    private static failIfAlreadyExist(check: UserView|null): void {
-        if (null !== check) {
+        let userExist: any = await this.userReadModel.getUserByUuid(uuid) || await this.userReadModel.getUserByEmail(email.value);
+        if (userExist) {
             throw <Application.IAppError>{
                 message: 'Already Exist',
                 code: 409
             };
         }
     }
+
 }

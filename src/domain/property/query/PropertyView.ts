@@ -9,4 +9,5 @@ export default interface PropertyView {
     createdAt: Date;
     geo: Geo;
     price: Price;
+    contacts: number
 }

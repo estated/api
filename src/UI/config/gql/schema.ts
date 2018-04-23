@@ -19,6 +19,12 @@ const RootMutation: string = `
         priceAmount: Int!, 
         currency: String!
       ): String
+      
+      contactRequest(
+        propertyUuid: String!,
+        userUuid: String!,
+        email: String!
+      ): String
     }
 `;
 
@@ -26,13 +32,15 @@ const RootQuery = `
   type Query {
   
     user(uuid: String!): User 
+    users(size: Int, page: Int): [User]!
     property(uuid: String!): Property
-    properties: [Property]!
+    properties(size: Int, page: Int): [Property]!
   }
 `;
 
 const SchemaDefinition = `
   schema {
+  
     query: Query
     mutation: Mutation
   }

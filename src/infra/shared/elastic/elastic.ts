@@ -1,4 +1,4 @@
-import {Client, PingParams, CreateDocumentParams, CreateDocumentResponse, SearchParams, Indices} from 'elasticsearch'
+import {Client, PingParams, CreateDocumentResponse, Indices} from 'elasticsearch'
 import { Domain } from 'hollywood-js';
 import config from '../config'
 
@@ -7,14 +7,14 @@ const { ELASTIC_HOST, ELASTIC_LOGS } = config;
 export default class Elastic {
     private client: Client | null;
     
-    constructor() {
-        this.connect()
+    constructor(logs: string = ELASTIC_LOGS) {
+        this.connect(logs)
     }
     
-    private connect() {
+    private connect(logs: string) {
         this.client = new Client({
             host: ELASTIC_HOST,
-            log: ELASTIC_LOGS
+            log: logs
         })
     }
 
@@ -29,6 +29,15 @@ export default class Elastic {
 
     async add(index: string, uuid: string, doc: any): Promise<CreateDocumentResponse> {
         return await this.client.index({
+            index: index,
+            type: index,
+            id: uuid,
+            body: doc
+        });
+    }
+
+    async patch(index: string, uuid: string, doc: any): Promise<CreateDocumentResponse> {
+        return await this.client.update({
             index: index,
             type: index,
             id: uuid,

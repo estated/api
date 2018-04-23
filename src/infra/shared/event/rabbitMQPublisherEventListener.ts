@@ -7,24 +7,23 @@ export default class RabbitMQPublisherEventListener extends EventStore.EventList
         super()
     }
 
-    on(event: Domain.DomainEvent): void {
-        const routing = 'domain' + RabbitMQPublisherEventListener.normalizeEventName(event);
+    on(message: Domain.DomainMessage): void {
+        const routing = 'domain' + RabbitMQPublisherEventListener.normalizeEventName(message.eventType);
 
         this.publisher.publish(
             'events',
             routing,
-            JSON.stringify(event)
+            JSON.stringify(message)
         ).catch(log);
-        
-        log(routing)
     }
 
     /**
      * Converts UserWasCreated into user.was.created
-     * @param {DomainEvent} event
+     *
+     * @param {string} eventType
      * @returns {string}
      */
-    private static normalizeEventName(event: Domain.DomainEvent): string {
-        return event.constructor.name.replace(/\.?([A-Z])/g,  (x,y) => ("." + y.toLowerCase()).replace(/^_/, ""));
+    private static normalizeEventName(eventType: string): string {
+        return eventType.replace(/\.?([A-Z])/g,  (x,y) => ("." + y.toLowerCase()).replace(/^_/, ""));
     }
 }

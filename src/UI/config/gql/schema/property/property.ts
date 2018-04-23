@@ -6,6 +6,7 @@ const Property = `
         uuid: String,
         title: String,
         description: String,
+        createdAt: String,
         type: Int,
         geo: Geo,
         price: Price

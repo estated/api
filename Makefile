@@ -23,7 +23,7 @@ logs:
 	docker-compose logs -f $(service)
 
 .PHONY: start
-dev: start-deps boot-es
+start: start-deps boot-es
 	DEV_HOST=192.168.99.100 yarn dev
 
 .PHONY: boot-es

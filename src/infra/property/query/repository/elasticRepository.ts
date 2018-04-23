@@ -12,22 +12,14 @@ class PropertyElasticRepository implements GetProperty, GetAllProperties {
         this.elasticCli = new Elastic();
     }
 
-    async all(options): Promise<PropertyView[] | null> {
+    async all(size: number = 25, from: number = 0): Promise<PropertyView[] | null> {
         const result: SearchResponse<PropertyView> =  await this.elasticCli.find(
             'property',
             {
+                match_all: {}
             },
-            options.size || 25,
-            options.from || 0,
-            {
-                sort: [
-                    {
-                        "createdAt" : {
-                            "order" : "asc"
-                        }
-                    }
-                ]
-            }
+            size,
+            from
         );
 
         const results: any = result.hits.hits;
@@ -41,6 +33,24 @@ class PropertyElasticRepository implements GetProperty, GetAllProperties {
             {
                 term: {
                     uuid: uuid
+                }
+            },
+            1
+        );
+
+        if (result.hits.total !== 0) {
+            return <PropertyView>result.hits.hits[0]._source;
+        }
+
+        return null;
+    }
+
+    async byTitle(email: string): Promise<PropertyView|null> {
+        const result: SearchResponse<PropertyView> =  await this.elasticCli.find(
+            'property',
+            {
+                term: {
+                    email: email
                 }
             },
             1

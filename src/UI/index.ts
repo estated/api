@@ -13,7 +13,7 @@ const boot = () => {
     });
 
     if (app.get('metrics')) {
-        metrics.init(3001);
+        metrics.init(3030);
     }
 };
 

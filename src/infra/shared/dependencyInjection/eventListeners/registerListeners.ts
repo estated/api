@@ -7,6 +7,7 @@ import propertyRepositoryFactory from "infra/shared/dependencyInjection/reposito
 import PropertyWasCreated from "domain/property/event/propertyWasCreated";
 import UserProjectionFactory from "infra/user/query/projection/userProjection";
 import {userEventStore} from "infra/shared/dependencyInjection/eventStore/eventStore";
+import PropertyContactRequestedByUser from "domain/property/event/propertyContactRequestedByUser";
 
 const propertyProjections = new PropertyProjection(propertyRepositoryFactory);
 const userProjections = new UserProjectionFactory(userEventStore);
@@ -17,6 +18,7 @@ const Register = async (eventBus: EventStore.EventBus) => {
     eventBus
         .attach(UserWasCreated, userProjections)
         .attach(PropertyWasCreated, propertyProjections)
+        .attach(PropertyContactRequestedByUser, propertyProjections)
         .addListener(new RabbitMQPublisherEventListener(Broker))
     ;
 };

@@ -8,7 +8,7 @@ class GetAllPropertiesHandler implements Application.IQueryHandler {
     async handle(query: GetAllPropertiesQuery): Promise<Application.IAppResponse|Application.IAppError> {
 
         return <Application.IAppResponse>{
-            data: await this.repo.all(query.options)
+            data: await this.repo.all(query.size, ((query.page -1) * query.size))
         };
     }
 }

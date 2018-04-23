@@ -2,7 +2,7 @@ import { Domain } from 'hollywood-js';
 import Geo from '../valueObject/geo';
 import Price from '../valueObject/price';
 import PropertyWasCreated from '../event/propertyWasCreated';
-import UserAskedForContact from '../event/userAskedForContact';
+import PropertyContactRequestedByUser from "domain/property/event/propertyContactRequestedByUser";
 
 type PropertyType = number;
 
@@ -16,9 +16,9 @@ class Property extends Domain.EventSourced {
     private uuid: string;
     private title: string;
     private description: string;
+    private contacts: number = 0;
     private type: PropertyType;
     private createdAt: Date;
-    private contactsCount: number = 0;
     private geo: Geo;
     private price: Price;
 
@@ -30,15 +30,14 @@ class Property extends Domain.EventSourced {
         return instance;
     }
 
+    public contactRequest(userUuid: string, email: string): void {
+        this.raise(new PropertyContactRequestedByUser(this.getAggregateRootId(), userUuid, email))
+    }
+
     public getAggregateRootId(): string {
 
         return this.uuid;
     }
-
-    public contact(userId: string, email: string): void {
-        this.raise(new UserAskedForContact(this.uuid, userId, email));
-    }
-
 
     public typeAsString(): string {
         return TYPES_TO_STRING[this.type];
@@ -54,9 +53,10 @@ class Property extends Domain.EventSourced {
         this.createdAt = event.ocurrendOn
     }
 
-    private applyUserAskForContact(event: UserAskedForContact): void {
-        this.contactsCount++
+    private applyPropertyContactRequestedByUser(event: PropertyContactRequestedByUser): void {
+        this.contacts++;
     }
+
 }
 
 export default Property;

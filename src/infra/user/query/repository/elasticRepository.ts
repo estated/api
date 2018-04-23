@@ -3,8 +3,9 @@ import GetUser from "domain/user/repository/query/getUser";
 import UserView from "domain/user/query/UserView";
 import {EmailType} from "domain/user/valueObject/email";
 import {SearchResponse} from "elasticsearch";
+import GetAll from "domain/user/repository/query/getAll";
 
-export default class UserElasticRepository implements GetUser {
+export default class UserElasticRepository implements GetUser, GetAll {
     private readonly elasticCli: Elastic;
 
     constructor() {
@@ -45,5 +46,23 @@ export default class UserElasticRepository implements GetUser {
         }
 
         return null;
+    }
+
+    async all(size: number = 25, from: number = 0): Promise<UserView[]> {
+
+        console.log(size, from);
+
+        const result: SearchResponse<UserView> =  await this.elasticCli.find(
+            'user',
+            {
+                match_all: {}
+            },
+            size,
+            from
+        );
+
+        const results: any = result.hits.hits;
+
+        return results.map(({ _source }) => (_source as UserView));
     }
 }

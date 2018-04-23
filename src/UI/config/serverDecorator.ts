@@ -4,18 +4,17 @@ import config from './config'
 import routingLoader from './routing/loader'
 import busFactory from './bus/buses'
 import ErrorHandling from './errorHandling';
-import ExecutableSchema from './gql'
 import * as morgan from 'morgan';
-import {log} from "util";
+import * as cors from 'cors'
 
 export default async (app: Express) => {
 
     await busFactory(app);
-
     app
         .set('port', config.PORT)
         .set('metrics', config.METRICS)
 
+        .use(cors())
         .use(morgan('combined'))
 
         .use(bodyParser.json())
