@@ -66,15 +66,22 @@ export default class UserElasticRepository implements GetUser, GetAll {
         return null;
     }
 
-    async all(size: number = 25, from: number = 0): Promise<UserView[]> {
-
-        console.log(size, from);
-
+    async all(size: number = 25, from: number = 0, query: string|null): Promise<UserView[]> {
         const result: SearchResponse<UserView> =  await this.elasticCli.find(
             'user',
-            {
-                match_all: {}
-            },
+            query
+                ? {
+                    "bool" : {
+                        "must" : {
+                            "query_string" : {
+                                "query" : '*' + query + '*'
+                            }
+                        }
+                    }
+                }
+                : {
+                    match_all: {}
+                },
             size,
             from
         );

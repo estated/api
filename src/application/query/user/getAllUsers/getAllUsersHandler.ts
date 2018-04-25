@@ -9,7 +9,8 @@ class GetAllUsersHandler implements Application.IQueryHandler {
         return <Application.IAppResponse>{
             data: await this.readModel.all(
                 request.size,
-                ((request.page -1) * request.size)
+                ((request.page -1) * request.size),
+                request.query
             )
         };
     }

@@ -35,7 +35,7 @@ const RootQuery = `
   type Query {
   
     user(uuid: String!): User 
-    users(size: Int, page: Int): [User]!
+    users(size: Int, page: Int, query: String): [User]!
     property(uuid: String!): Property
     properties(size: Int, page: Int): [Property]!
   }
