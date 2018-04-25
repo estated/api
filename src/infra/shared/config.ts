@@ -1,4 +1,4 @@
-const DEV_HOST = process.env.DEV_HOST || '127.0.0.1';
+const DEV_HOST = process.env.DEV_HOST || '192.168.99.100';
 
 export default {
     MESSAGE_BROKER: process.env.MESSAGE_BROKER || `amqp://guest:guest@${DEV_HOST}:5672`,

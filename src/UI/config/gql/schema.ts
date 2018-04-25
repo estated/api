@@ -6,7 +6,10 @@ const RootMutation: string = `
       
       createUser(
         uuid: String!, 
-        email: String!
+        email: String!,
+        name: String!,
+        surname: String,
+        identityId: String
       ): String
       
       createProperty(

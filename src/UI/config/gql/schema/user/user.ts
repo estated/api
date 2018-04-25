@@ -1,7 +1,11 @@
 const User = `
     type User { 
         uuid: String, 
-        email: String 
+        email: String,
+        name: String,
+        surname: String,
+        identityId: String,
+        createdAt: String
     }
 `;
 

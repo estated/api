@@ -8,7 +8,6 @@
     "start": "tsc; TS_NODE_PROJECT=tsconfig.dist.json NODE_PATH=src node --inspect=3030 -r tsconfig-paths/register dist/src/UI/index.js",
     "start:production": "TS_NODE_PROJECT=tsconfig.dist.json NODE_PATH=src node -r tsconfig-paths/register dist/src/UI/index.js",
     "watch": "tsc -w",
-    "predev": "yarn indexes",
     "dev": "nodemon",
     "compile": "tsc -p tsconfig.json",
     "event-consumer": "NODE_PATH=src node -r ts-node/register/type-check src/UI/console/elasticEventConsumer.ts",

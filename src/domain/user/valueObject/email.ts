@@ -19,7 +19,7 @@ export default class Email {
 
     private validate(value: string): void | InvalidArgumentError {
         if (! this.regex.test(value)) {
-            return new InvalidArgumentError('Invalid Email: ' + value + ' ' + this.regex.test(value));
+            return new InvalidArgumentError('Invalid Email: ' + value);
         }
         this.value = <EmailType> value;
     }

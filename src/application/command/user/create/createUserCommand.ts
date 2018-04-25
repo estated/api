@@ -3,7 +3,14 @@ import Email from 'domain/user/valueObject/email';
 
 export default class CreateUserCommand implements Application.ICommand {
     public readonly email: Email;
-    constructor(public uuid: string, email: string){
+    constructor(
+        public uuid: string,
+        email: string,
+        public name: string,
+        public surname: string,
+        public identity: string,
+
+    ){
         this.email = Email.fromString(email);
     }
 }

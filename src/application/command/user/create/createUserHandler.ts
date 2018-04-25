@@ -12,11 +12,18 @@ export default class CreateUserHandler implements Application.ICommandHandler {
     ) {}
 
     async handle(command: CreateUserCommand): Promise<void|Application.IAppError> {
-        await this.validateUuidAndEmail(command.uuid, command.email);
+        await this.validateUuidAndEmail(
+            command.uuid,
+            command.email,
+            command.identity
+        );
 
         const user = User.create(
             command.uuid,
-            command.email
+            command.email,
+            command.name,
+            command.surname,
+            command.identity
         );
 
         try {
@@ -30,8 +37,12 @@ export default class CreateUserHandler implements Application.ICommandHandler {
         }
     }
 
-    private async validateUuidAndEmail(uuid: string, email: Email): Promise<void> {
-        let userExist: any = await this.userReadModel.getUserByUuid(uuid) || await this.userReadModel.getUserByEmail(email.value);
+    private async validateUuidAndEmail(uuid: string, email: Email, identity: string): Promise<void> {
+        let userExist: any = await this.userReadModel.getUserByUuid(uuid)
+            || await this.userReadModel.getUserByEmail(email.value)
+            || await this.userReadModel.getUserByIdentity(identity)
+        ;
+
         if (userExist) {
             throw <Application.IAppError>{
                 message: 'Already Exist',
