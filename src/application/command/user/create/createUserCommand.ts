@@ -9,7 +9,9 @@ export default class CreateUserCommand implements Application.ICommand {
         public name: string,
         public surname: string,
         public identity: string,
-
+        public phone: string,
+        public IBAN: string,
+        public salary: number | null
     ){
         this.email = Email.fromString(email);
     }

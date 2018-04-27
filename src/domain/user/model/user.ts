@@ -9,6 +9,9 @@ export default class User extends Domain.EventSourced {
     surname: string;
     identityId: string;
     createdAt: Date;
+    phone: string;
+    IBAN: string;
+    salary: number;
 
     getAggregateRootId(): string {
         return this.uuid
@@ -19,7 +22,10 @@ export default class User extends Domain.EventSourced {
         email: Email,
         name: string,
         surname: string,
-        identityId: string
+        identityId: string,
+        phone: string,
+        IBAN: string,
+        salary: number | null
     ): User {
         const instance = new User();
 
@@ -28,7 +34,10 @@ export default class User extends Domain.EventSourced {
             email.value,
             name,
             surname,
-            identityId
+            identityId,
+            phone,
+            IBAN,
+            salary
         ));
 
         return instance;
@@ -41,5 +50,8 @@ export default class User extends Domain.EventSourced {
         this.identityId = event.identityId;
         this.name = event.name;
         this.surname = event.surname;
+        this.phone = event.phone;
+        this.IBAN = event.IBAN;
+        this.salary = event.salary;
     }
 }

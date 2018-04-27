@@ -8,6 +8,9 @@ export default class UserWasCreated extends Domain.DomainEvent {
         public name: string,
         public surname: string,
         public identityId: string,
+        public phone: string,
+        public IBAN: string | null,
+        public salary: number | null
     ) {
         super();
     }

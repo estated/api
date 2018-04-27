@@ -23,7 +23,10 @@ export default class CreateUserHandler implements Application.ICommandHandler {
             command.email,
             command.name,
             command.surname,
-            command.identity
+            command.identity,
+            command.phone,
+            command.IBAN,
+            command.salary
         );
 
         try {

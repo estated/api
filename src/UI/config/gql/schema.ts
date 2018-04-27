@@ -8,8 +8,11 @@ const RootMutation: string = `
         uuid: String!, 
         email: String!,
         name: String!,
-        surname: String,
-        identityId: String
+        surname: String!,
+        identityId: String!,
+        phone: String, 
+        IBAN: String, 
+        salary: Int
       ): String
       
       createProperty(

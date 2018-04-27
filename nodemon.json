@@ -1,5 +1,5 @@
 {
-    "ignore": [".git", "node_modules"],
+    "ignore": [".git", "node_modules", ".idea", ".dist"],
     "watch": ["src", "package.json"],
     "exec": "npm start",
     "ext": "ts"

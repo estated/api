@@ -8,7 +8,7 @@ build:
 
 .PHONY: install # Install Api depencencies
 install:
-	docker-compose run --rm api sh -lc 'yarn install'
+	docker-compose run --rm api sh -lc 'apk add -U python make g++;yarn install'
 
 .PHONY: dev
 dev:
