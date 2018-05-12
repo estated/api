@@ -19,14 +19,15 @@ export default class CreatePropertyHandler implements Application.ICommandHandle
             command.description, 
             command.type, 
             command.geo, 
-            command.price
+            command.price,
+            command.ownerUuid
         );
 
         await this.propertyStore.save(property);
     }
 
     private async validateUuidAndTitle(uuid: string, title: string): Promise<void> {
-        const exist = await this.propertyReadModel.byUuid(uuid) || await this.propertyReadModel.byTitle(title);
+        const exist = await this.propertyReadModel.existsByUuid(uuid) || await this.propertyReadModel.byTitle(title);
         if (exist) {
             throw <Application.IAppError>{
                 message: 'Already Exist',

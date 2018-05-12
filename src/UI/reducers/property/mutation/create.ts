@@ -12,7 +12,8 @@ export default async (
         lat,
         lon,
         priceAmount,
-        currency
+        currency,
+        ownerUuid
     },
     context) => {
         try {
@@ -24,7 +25,8 @@ export default async (
                 lat,
                 lon,
                 priceAmount,
-                currency
+                currency,
+                ownerUuid
             ));
     
             return 'ok';

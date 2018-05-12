@@ -1,12 +1,15 @@
 const User = `
     type User { 
-        uuid: String, 
+        uuid: String!, 
         email: String,
-        name: String,
-        surname: String,
+        name: String!,
+        surname: String!,
+        phone: String,
         identityId: String,
-        createdAt: String
+        createdAt: String!,
+        properties: [Property]!
     }
 `;
 
 export default User;
+

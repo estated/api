@@ -3,8 +3,9 @@ import {SearchResponse} from "elasticsearch";
 import PropertyView from "domain/property/query/PropertyView";
 import GetProperty from "domain/property/repository/query/getProperty";
 import GetAllProperties from "domain/property/repository/query/getAllProperties";
+import CheckLessee from "domain/property/repository/query/checkLessee";
 
-class PropertyElasticRepository implements GetProperty, GetAllProperties {
+class PropertyElasticRepository implements GetProperty, GetAllProperties, CheckLessee {
 
     private readonly elasticCli: Elastic;
 
@@ -45,6 +46,11 @@ class PropertyElasticRepository implements GetProperty, GetAllProperties {
         return null;
     }
 
+    async existsByUuid(uuid: string): Promise<boolean> {
+
+        return await this.elasticCli.exists('property', uuid);
+    }
+
     async byTitle(email: string): Promise<PropertyView|null> {
         const result: SearchResponse<PropertyView> =  await this.elasticCli.find(
             'property',
@@ -61,6 +67,11 @@ class PropertyElasticRepository implements GetProperty, GetAllProperties {
         }
 
         return null;
+    }
+
+
+    async exists(lesseeUuid: string): Promise<boolean> {
+        return await this.elasticCli.exists('user', lesseeUuid);
     }
 }
 

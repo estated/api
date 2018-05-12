@@ -1,6 +1,6 @@
 import { Application } from 'hollywood-js';
 import Geo from 'domain/property/valueObject/geo';
-import Price from 'domain/property/valueObject/price';
+import Price from "domain/shared/valueObject/price";
 
 export default class CreatePropertyCommand implements Application.ICommand {
 
@@ -15,7 +15,8 @@ export default class CreatePropertyCommand implements Application.ICommand {
         lat: number,
         lon: number,
         priceAmount: number,
-        currency: string
+        currency: string,
+        public readonly ownerUuid: string | null
     ) {
         this.geo = Geo.create(lat, lon);
         this.price = new Price(priceAmount, currency);

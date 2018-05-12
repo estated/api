@@ -1,5 +1,5 @@
 import Geo from "domain/property/valueObject/geo";
-import Price from "domain/property/valueObject/price";
+import Price from "domain/shared/valueObject/price";
 
 export default interface PropertyView {
     uuid: string;
@@ -9,5 +9,7 @@ export default interface PropertyView {
     createdAt: Date;
     geo: Geo;
     price: Price;
-    contacts: number
+    contacts: number;
+    ownerUuid: string | null;
+    currentRentUuid: string | null;
 }

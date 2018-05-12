@@ -1,5 +1,6 @@
 import Geo from "./geo"
 import Price from "./price"
+import Rent from "./rent";
 
 const Property = `
     type Property {
@@ -9,8 +10,10 @@ const Property = `
         createdAt: String,
         type: Int,
         geo: Geo,
-        price: Price
+        price: Price,
+        owner: User,
+        currentRent: Rent,
     }
 `;
 
-export default () => [Property, Price, Geo];
+export default () => [Property, Price, Geo, Rent];

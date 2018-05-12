@@ -23,13 +23,24 @@ const RootMutation: string = `
         lat: Int!, 
         lon: Int!, 
         priceAmount: Int!, 
-        currency: String!
+        currency: String!,
+        ownerUuid: String
       ): String
       
       contactRequest(
         propertyUuid: String!,
         userUuid: String!,
         email: String!
+      ): String
+      
+      rent(
+        uuid: String!,
+        propertyUuid: String!,
+        lesseeUuid: String!,
+        startAt: String!
+        endAt: String!
+        priceAmount: Int!, 
+        currency: String!,
       ): String
     }
 `;

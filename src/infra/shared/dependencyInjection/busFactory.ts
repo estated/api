@@ -19,12 +19,19 @@ import ContactRequestHandler from "application/command/property/contact/contactR
 import ContactRequestCommand from "application/command/property/contact/contactRequestCommand";
 
 import userRepository, { getUser } from "infra/shared/dependencyInjection/repositories/userRepositoryFactory";
-import propertyRepositoryFactory, {getProperty} from "infra/shared/dependencyInjection/repositories/propertyRepositoryFactory";
+import propertyWriteRepository, {
+    getProperty,
+    getRent
+} from "infra/shared/dependencyInjection/repositories/propertyRepositoryFactory";
 
-import { eventBus } from "infra/shared/dependencyInjection/eventStore/eventStore";
+import {eventBus} from "infra/shared/dependencyInjection/eventStore/eventStore";
 import Register from "infra/shared/dependencyInjection/eventListeners/registerListeners";
 import GetAllUsersHandler from "application/query/user/getAllUsers/getAllUsersHandler";
 import GetAllUsersCommand from "application/query/user/getAllUsers/getAllUsersQuery";
+import GetRentQuery from "application/query/property/getRent/getRentQuery";
+import GetRentHandler from "application/query/property/getRent/getRentHandler";
+import RentPropertyCommand from "application/command/property/rentProperty/rentPropertyCommand";
+import RentPropertyHandler from "application/command/property/rentProperty/rentPropertyHandler";
 
 
 const commandResolver = new Application.CommandHandlerResolver();
@@ -37,14 +44,16 @@ queryResolver
     // Property
     .addHandler(GetPropertyByUuidQuery, new GetPropertyByUuidHandler(getProperty))
     .addHandler(GetAllPropertiesQuery, new GetAllPropertiesHandler(getProperty))
+    .addHandler(GetRentQuery, new GetRentHandler(getRent))
 ;
 
 commandResolver
     // User
     .addHandler(CreateUserCommand, new CreateUserHandler(getUser, userRepository))
     // Property
-    .addHandler(CreatePropertyCommand, new CreatePropertyHandler(propertyRepositoryFactory, getProperty))
-    .addHandler(ContactRequestCommand, new ContactRequestHandler(propertyRepositoryFactory))
+    .addHandler(CreatePropertyCommand, new CreatePropertyHandler(propertyWriteRepository, getProperty))
+    .addHandler(ContactRequestCommand, new ContactRequestHandler(propertyWriteRepository))
+    .addHandler(RentPropertyCommand, new RentPropertyHandler(propertyWriteRepository, getProperty))
 ;
 
 const AppQueryBus = new Application.QueryBus(queryResolver);

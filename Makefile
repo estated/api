@@ -24,11 +24,11 @@ logs:
 
 .PHONY: start
 start: start-deps boot-es
-	DEV_HOST=192.168.99.100 yarn dev
+	yarn dev
 
 .PHONY: boot-es
 boot-es: boot-es
-	DEV_HOST=192.168.99.100 yarn indexes
+	yarn indexes
 
 .PHONY: start-deps
 start-deps:

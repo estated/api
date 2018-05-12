@@ -46,7 +46,7 @@ export default class User extends Domain.EventSourced {
     protected applyUserWasCreated(event: UserWasCreated): void {
         this.uuid = event.uuid;
         this.email = event.email;
-        this.createdAt = event.ocurrendOn;
+        this.createdAt = event.createdAt;
         this.identityId = event.identityId;
         this.name = event.name;
         this.surname = event.surname;

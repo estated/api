@@ -22,6 +22,7 @@
     "@types/jest": "^22.1.4",
     "@types/node": "^9.4.6",
     "@types/redis": "^2.8.6",
+    "graphql-voyager": "^1.0.0-rc.15",
     "jest": "^22.4.2",
     "node-monitor-ui": "^1.0.6",
     "nodemon": "^1.17.2",

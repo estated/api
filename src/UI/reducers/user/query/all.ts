@@ -9,6 +9,6 @@ export default  async (root, {page, size, query}, context) => {
         return res.data;
     } catch (err) {
 
-        return new GraphQLError("User not found")
+        return new GraphQLError(err.toString())
     }
 }

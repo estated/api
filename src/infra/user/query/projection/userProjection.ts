@@ -27,6 +27,7 @@ export default class UserProjectionFactory extends EventStore.EventSubscriber {
     private static userView(user: User | any): UserView {
         delete user['methodPrefix'];
         delete user['events'];
+        delete user['aggregates'];
 
         return <UserView>user;
     }

@@ -45,6 +45,16 @@ export default class Elastic {
         });
     }
 
+    async exists(index: string, uuid: string): Promise<boolean> {
+        return (
+            await this.client.exists({
+                index: index,
+                type: index,
+                id: uuid
+            })
+        );
+    }
+
     async find(index: string, query, size: number, from: number = 0, sort = {}): Promise<any> {
         return await this.client.search(
             {
@@ -56,6 +66,16 @@ export default class Elastic {
                     sort,
                     query
                 }
+            }
+        )
+    }
+
+    async check(index: string, uuid: string): Promise<any> {
+        return await this.client.exists(
+            {
+                index: index,
+                type: index,
+                id: uuid
             }
         )
     }

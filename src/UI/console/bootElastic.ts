@@ -7,12 +7,10 @@ const indices = ElasticSearch.indices();
 
 const createUserIndex = async () => {
 
-    try {
-        await indices.delete({index: 'user'});
-    } catch (err) {
-        // Do nothing
+    if (!await indices.exists({index: 'user'})) {
+
+        await indices.create({index: 'user'});
     }
-    await indices.create({index: 'user'});
     await indices.putMapping({
         index: 'user',
         type: 'user',
@@ -26,12 +24,11 @@ const createUserIndex = async () => {
 
     log('Created index user');
 
-    try {
-        await indices.delete({index: 'property'});
-    } catch (err) {
-        // Do nothing
+    if (!await indices.exists({index: 'property'})) {
+
+        await indices.create({index: 'property'});
     }
-    await indices.create({index: 'property'});
+
     await indices.putMapping({
         index: 'property',
         type: 'property',
@@ -43,17 +40,17 @@ const createUserIndex = async () => {
                 type: { type: "integer" },
                 createdAt: { type: "date" },
                 geo: {
-                    "type": "nested",
-                    "properties": {
-                        "lat": {"type": "integer"},
-                        "lon": {"type": "integer"}
+                    type: "nested",
+                    properties: {
+                        lat: {"type": "integer"},
+                        lon: {"type": "integer"}
                     }
                 },
                 price: {
-                    "type": "nested",
-                    "properties": {
-                        "amount": {"type": "integer"},
-                        "currency": {"type": "keyword"}
+                    type: "nested",
+                    properties: {
+                        amount: {type: "integer"},
+                        currency: {type: "keyword"}
                     }
                 }
             }
@@ -61,6 +58,42 @@ const createUserIndex = async () => {
     });
 
     log('Created index property');
+
+
+    if (!await indices.exists({index: 'rent'})) {
+
+        await indices.create({index: 'rent'});
+    }
+
+    await indices.putMapping({
+        index: 'rent',
+        type: 'rent',
+        body: {
+            properties: {
+                uuid: { type: "keyword" },
+                propertyUuid: { type: "keyword" },
+                ownerUuid: { type: "keyword" },
+                lesseeUuid: { type: "keyword" },
+                currentRentUuid: { type: "keyword" },
+                period: {
+                    type: "nested",
+                    properties: {
+                        startAt: { type: "date" },
+                        endAt: { type: "date" }
+                    }
+                },
+                price: {
+                    type: "nested",
+                    properties: {
+                        amount: { type: "integer" },
+                        currency: { type: "keyword" }
+                    }
+                }
+            }
+        }
+    });
+
+    log('Created index rent');
 };
 
 createUserIndex().then(() => log('DONE!'));

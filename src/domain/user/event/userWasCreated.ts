@@ -2,6 +2,8 @@ import { Domain } from 'hollywood-js';
 import { EmailType } from "domain/user/valueObject/email";
 
 export default class UserWasCreated extends Domain.DomainEvent {
+    public readonly createdAt: Date;
+
     constructor(
         public uuid: string,
         public email: EmailType,
@@ -13,5 +15,6 @@ export default class UserWasCreated extends Domain.DomainEvent {
         public salary: number | null
     ) {
         super();
+        this.createdAt = new Date();
     }
 }
