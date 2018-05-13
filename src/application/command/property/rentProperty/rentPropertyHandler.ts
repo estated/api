@@ -24,6 +24,14 @@ class RentPropertyHandler implements Application.ICommandHandler {
             }
         }
 
+        if (property.currentRent && property.currentRent.period.endAt >= new Date()) {
+
+            return <Application.IAppError> {
+                code: 409,
+                message: 'Property already rented'
+            }
+        }
+
         property.rent(
             command.uuid,
             command.lesseeUuid,

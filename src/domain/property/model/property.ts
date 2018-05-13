@@ -5,6 +5,7 @@ import PropertyContactRequestedByUser from "domain/property/event/propertyContac
 import Price from "domain/shared/valueObject/price";
 import PropertyWasRented from "domain/property/event/rent/PropertyWasRented";
 import Rent from "domain/property/model/rent";
+import Address from "domain/property/valueObject/Address";
 
 type PropertyType = number;
 
@@ -26,6 +27,7 @@ class Property extends Domain.EventSourced {
     private price: Price;
     private currentRentUuid: string | null;
     public currentRent: Rent;
+    public adress: Address;
 
     constructor() {
         super();
